@@ -1,4 +1,4 @@
-package com.ehsankhormali.wac.screens.main
+package com.ehsankhormali.wac.screens.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

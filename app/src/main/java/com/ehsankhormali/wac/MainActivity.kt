@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.ehsankhormali.wac.navigation.WacNavigation
+import com.ehsankhormali.wac.screens.main.MainScreen
 import com.ehsankhormali.wac.ui.theme.WACTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +32,6 @@ fun Wac(){
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        WacNavigation()
+        MainScreen()
     }
 }
