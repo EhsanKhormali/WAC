@@ -13,18 +13,6 @@ import com.ehsankhormali.wac.navigation.WacNavigation
 
 @Composable
 fun MainScreen(){
-    val navController= rememberNavController()
-    Scaffold(
-        modifier = Modifier,
-        topBar = {
-            Row{
-            MainAppBar(query = "", navController = navController)
-            }
-                 },
-        bottomBar = { WacBottomNavigation(navController) }
-    ) { innerPadding ->
-        Surface(modifier = Modifier.padding(innerPadding)) {
-            WacNavigation(navController = navController)
-        }
-    }
+
+
 }

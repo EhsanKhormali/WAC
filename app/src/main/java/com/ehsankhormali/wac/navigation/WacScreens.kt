@@ -4,5 +4,6 @@ enum class WacScreens {
     HomeScreen,
     //LoginScreen,
     SearchScreen,
-    ProductsScreen
+    ProductsScreen,
+    BlogPostScreen
 }

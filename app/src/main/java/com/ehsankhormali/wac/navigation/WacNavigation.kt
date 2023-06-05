@@ -3,10 +3,13 @@ package com.ehsankhormali.wac.navigation
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.ehsankhormali.wac.screens.home.HomeScreen
 import com.ehsankhormali.wac.screens.home.HomeScreenViewModel
+import com.ehsankhormali.wac.screens.post.BlogPostScreen
 import com.ehsankhormali.wac.screens.products.Products
 import com.ehsankhormali.wac.screens.search.SearchScreen
 
@@ -25,6 +28,18 @@ fun WacNavigation(navController: NavHostController) {
 
         composable(WacScreens.ProductsScreen.name){
             Products(navController = navController)
+        }
+
+        val postRout=WacScreens.BlogPostScreen.name
+        composable("$postRout/{postId}",
+            arguments = listOf(
+                navArgument(name = "postId"){
+                    type= NavType.IntType})
+        ){navBack ->
+            navBack.arguments?.getInt("postId")?.let {
+                postId ->
+                BlogPostScreen(navController = navController, postId = postId)
+            }
         }
     }
 }

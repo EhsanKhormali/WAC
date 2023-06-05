@@ -33,4 +33,21 @@ class WacRepository @Inject constructor(private val wordpressApi: WordpressApi) 
         }
         return response
     }
+
+    suspend fun getEmbeddedPost(postId:Int) : EmbeddedPost?{
+        val apiRequest=ApiRequest<EmbeddedPost>(data = null, state = RequestState.Idle())
+        val response=try {
+            apiRequest.state=RequestState.Loading()
+            apiRequest.data=wordpressApi.getEmbeddedPost(postId = postId)
+            apiRequest.state=RequestState.Success()
+            apiRequest
+        }catch (exception:Exception){
+            apiRequest.state=RequestState.Error("${exception.message}")
+            apiRequest
+        }
+        return if(response.state is RequestState.Success)
+            response.data
+        else
+            null
+    }
 }

@@ -19,6 +19,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -31,20 +33,35 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import com.ehsankhormali.wac.R
+import com.ehsankhormali.wac.components.appbar.MainAppBar
+import com.ehsankhormali.wac.components.wac_bottom_navigation.WacBottomNavigation
 import com.ehsankhormali.wac.data.RequestState
+import com.ehsankhormali.wac.navigation.WacScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
-
+    Scaffold(
+        modifier = Modifier,
+        topBar = {
+            Row{
+                MainAppBar(query = "", navController = navController)
+            }
+        },
+        bottomBar = { WacBottomNavigation(navController) }
+    ) { innerPadding ->
+        Surface(modifier = Modifier.padding(innerPadding)) {
             when (viewModel.postListState.value.state) {
                 is RequestState.Success ->
                 {
                     LazyColumn(){
                         items(items = viewModel.postListState.value.data.orEmpty()){postItem ->
-                            Card(modifier = Modifier.padding(5.dp), elevation = CardDefaults.cardElevation()) {
+                            Card(
+                                modifier = Modifier.padding(5.dp),
+                                elevation = CardDefaults.cardElevation(),
+                                onClick = {navController.navigate(WacScreens.BlogPostScreen.name+"/${postItem.id}")}
+                            ) {
                                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                                     Column {
 
@@ -69,7 +86,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                         Row(modifier = Modifier
                                             .height(45.dp)
                                             .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceAround) {
+                                            horizontalArrangement = Arrangement.SpaceAround) {
                                             IconButton(onClick = { /*TODO*/ }) {
                                                 Icon(
                                                     painter = painterResource(id = R.drawable.chat_bubble_fill0_wght400_grad0_opsz48),
@@ -82,7 +99,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                             }
 
                                             Row(modifier = Modifier.padding(5.dp),
-                                            verticalAlignment = Alignment.CenterVertically) {
+                                                verticalAlignment = Alignment.CenterVertically) {
                                                 AsyncImage(
                                                     model = postItem.embedded.author[0].avatarUrls.size24,
                                                     placeholder = painterResource(id = R.drawable.image_placeholder),
@@ -98,14 +115,18 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                     }
                                 }
                             }
-                    }
+                        }
                     }
 
                 }
                 is RequestState.Loading -> ScreenLoading()
                 is RequestState.Error -> Text(text = "${viewModel.postListState.value.state.message}")
                 else -> Text(text = "I'm idle")
+            }
         }
+    }
+
+
 
     }
 
