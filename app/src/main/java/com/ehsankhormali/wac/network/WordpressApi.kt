@@ -14,6 +14,6 @@ interface WordpressApi {
     @GET("posts?_embed&_fields= id,date,date_gmt,modified,modified_gmt,title,excerpt,author,_links.replies,_links.wp:featuredmedia,_links.author,_embedded")
     suspend fun getAllShortPost(@Query("p") pageNumber:Int):ArrayList<ShortPost>
 
-    @GET("posts/{postId}")
+    @GET("posts/{postId}?_embed")
     suspend fun getEmbeddedPost(@Path("postId") postId:Int):EmbeddedPost
 }

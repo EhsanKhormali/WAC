@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ehsankhormali.wac.components.appbar.MainAppBar
-import com.ehsankhormali.wac.components.appbar.WacAppBar
 import com.ehsankhormali.wac.components.wac_bottom_navigation.WacBottomNavigation
 import com.ehsankhormali.wac.navigation.WacNavigation
 import com.ehsankhormali.wac.ui.theme.WACTheme
@@ -23,27 +22,23 @@ fun WacApp(){
         val navController = rememberNavController()
         val navBackStackEntry = navController.currentBackStackEntryAsState()
         val rout = navBackStackEntry.value?.destination?.route
+        val bottomBarRoutes= listOf("HomeScreen","ProductsScreen")
+        val mainAppBarRoutes= listOf("HomeScreen","ProductsScreen")
+        val shouldShowBottomBar:Boolean=rout in bottomBarRoutes
+        val shouldShowMainAppBar= rout in mainAppBarRoutes
+
         Scaffold(
             topBar = {
-                when(rout){
-                    null->
+                    if (shouldShowMainAppBar)
                         MainAppBar(query = "", navController = navController)
-                    "HomeScreen"->
-                        MainAppBar(query = "", navController = navController)
-                    "ProductsScreen"->
-                        MainAppBar(query = "", navController = navController)
-                    "BlogPostScreen/{postId}"->
-                        WacAppBar()
-                    else ->
+                    else
                         TopAppBar(title = { Text(text = "")})
-                }
 
             },
             bottomBar = {
-                when(rout){
-                    null,"HomeScreen","ProductsScreen"->
+                if (shouldShowBottomBar)
                         WacBottomNavigation(navController = navController)
-                }
+
             }
         ) {
             Surface(modifier = Modifier.padding(it)) {

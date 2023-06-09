@@ -22,13 +22,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
@@ -49,69 +47,71 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                             elevation = CardDefaults.cardElevation(),
                             onClick = { navController.navigate(WacScreens.BlogPostScreen.name + "/${postItem.id}") }
                         ) {
-                            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                                Column {
+                            Column {
+
+                                Row(
+                                    modifier = Modifier.padding(5.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    AsyncImage(
+                                        model = postItem.embedded.wpFeaturedMedia?.let { it[0].mediaDetails.sizes.medium.sourceUrl },
+                                        placeholder = painterResource(id = R.drawable.image_placeholder),
+                                        error = painterResource(id = R.drawable.image_placeholder),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(70.dp)
+                                    )
+                                    Column(modifier = Modifier.padding(8.dp)) {
+                                        Text(
+                                            text = postItem.title.rendered,
+                                            style = MaterialTheme.typography.headlineSmall.copy(textDirection = TextDirection.Content),
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                        Text(text = postItem.excerpt.rendered,
+                                            style = MaterialTheme.typography.bodyMedium.copy(textDirection = TextDirection.Content),
+                                            modifier = Modifier.fillMaxWidth())
+                                    }
+                                }
+                                Divider(thickness = 1.dp)
+                                Row(
+                                    modifier = Modifier
+                                        .height(45.dp)
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceAround
+                                ) {
+                                    IconButton(onClick = { /*TODO*/ }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.chat_bubble_fill0_wght400_grad0_opsz48),
+                                            contentDescription = "",
+                                            modifier = Modifier.size(24.dp)
+                                        )
+                                        Text(
+                                            text = (postItem.embedded.replies?.get(0)?.size
+                                                ?: 0).toString(),
+                                            style = MaterialTheme.typography.labelSmall
+                                        )
+                                    }
 
                                     Row(
                                         modifier = Modifier.padding(5.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         AsyncImage(
-                                            model = postItem.embedded.wpFeaturedMedia?.let { it[0].mediaDetails.sizes.medium.sourceUrl },
+                                            model = postItem.embedded.author[0].avatarUrls.size24,
                                             placeholder = painterResource(id = R.drawable.image_placeholder),
                                             error = painterResource(id = R.drawable.image_placeholder),
                                             contentDescription = null,
-                                            modifier = Modifier.size(70.dp)
+                                            modifier = Modifier
+                                                .size(24.dp)
+                                                .clip(shape = CircleShape)
                                         )
-                                        Column(modifier = Modifier.padding(8.dp)) {
-                                            Text(
-                                                text = postItem.title.rendered,
-                                                style = MaterialTheme.typography.headlineSmall
-                                            )
-                                            Text(text = postItem.excerpt.rendered)
-                                        }
-                                    }
-                                    Divider(thickness = 1.dp)
-                                    Row(
-                                        modifier = Modifier
-                                            .height(45.dp)
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceAround
-                                    ) {
-                                        IconButton(onClick = { /*TODO*/ }) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.chat_bubble_fill0_wght400_grad0_opsz48),
-                                                contentDescription = "",
-                                                modifier = Modifier.size(24.dp)
-                                            )
-                                            Text(
-                                                text = (postItem.embedded.replies?.get(0)?.size
-                                                    ?: 0).toString(),
-                                                style = MaterialTheme.typography.labelSmall
-                                            )
-                                        }
-
-                                        Row(
-                                            modifier = Modifier.padding(5.dp),
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            AsyncImage(
-                                                model = postItem.embedded.author[0].avatarUrls.size24,
-                                                placeholder = painterResource(id = R.drawable.image_placeholder),
-                                                error = painterResource(id = R.drawable.image_placeholder),
-                                                contentDescription = null,
-                                                modifier = Modifier
-                                                    .size(24.dp)
-                                                    .clip(shape = CircleShape)
-                                            )
-                                            Text(
-                                                text = postItem.embedded.author[0].name,
-                                                style = MaterialTheme.typography.labelSmall
-                                            )
-                                        }
+                                        Text(
+                                            text = postItem.embedded.author[0].name,
+                                            style = MaterialTheme.typography.labelSmall
+                                        )
                                     }
                                 }
                             }
+
                         }
                     }
                 }
