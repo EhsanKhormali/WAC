@@ -5,6 +5,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -14,6 +18,7 @@ import com.ehsankhormali.wac.components.wac_bottom_navigation.WacBottomNavigatio
 import com.ehsankhormali.wac.navigation.WacNavigation
 import com.ehsankhormali.wac.navigation.WacScreens
 import com.ehsankhormali.wac.ui.theme.WACTheme
+import com.ehsankhormali.wac.utils.getTitleByRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +31,10 @@ fun WacApp(){
         val mainAppBarRoutes= listOf("HomeScreen","ProductsScreen")
         val shouldShowBottomBar:Boolean=rout in bottomBarRoutes
         val shouldShowMainAppBar= rout in mainAppBarRoutes
-
+        var title: String by remember{
+            mutableStateOf("")
+        }
+        title=getTitleByRoute(route = rout ?: "")
         Scaffold(
             topBar = {
                     if (shouldShowMainAppBar)
@@ -34,7 +42,7 @@ fun WacApp(){
                             navController.navigate(WacScreens.ProfileScreen.name)
                         }
                     else
-                        WacAppBar(navController = navController)
+                        WacAppBar(navController = navController,title=title)
 
             },
             bottomBar = {

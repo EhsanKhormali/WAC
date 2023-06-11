@@ -14,9 +14,9 @@ import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WacAppBar(navController: NavController){
+fun WacAppBar(navController: NavController,title: String=""){
     TopAppBar(
-        title = { Text(text = "Post details")},
+        title = { Text(text = title)},
         navigationIcon = {
             IconButton(onClick = { navController.popBackStack() }
             ) {
@@ -29,5 +29,5 @@ fun WacAppBar(navController: NavController){
 @Preview
 @Composable
 fun AppBarPreview(){
-    WacAppBar(rememberNavController())
+    WacAppBar(navController = rememberNavController())
 }
