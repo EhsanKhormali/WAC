@@ -10,7 +10,8 @@ import androidx.navigation.navArgument
 import com.ehsankhormali.wac.screens.home.HomeScreen
 import com.ehsankhormali.wac.screens.home.HomeScreenViewModel
 import com.ehsankhormali.wac.screens.post.BlogPostScreen
-import com.ehsankhormali.wac.screens.products.Products
+import com.ehsankhormali.wac.screens.products.ProductsScreen
+import com.ehsankhormali.wac.screens.profile.ProfileScreen
 import com.ehsankhormali.wac.screens.search.SearchScreen
 
 @Composable
@@ -27,7 +28,11 @@ fun WacNavigation(navController: NavHostController) {
         }
 
         composable(WacScreens.ProductsScreen.name){
-            Products(navController = navController)
+            ProductsScreen(navController = navController)
+        }
+
+        composable(WacScreens.ProfileScreen.name){
+            ProfileScreen(navController = navController)
         }
 
         val postRout=WacScreens.BlogPostScreen.name

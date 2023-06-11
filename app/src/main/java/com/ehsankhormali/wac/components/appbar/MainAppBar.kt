@@ -34,7 +34,7 @@ import coil.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainAppBar(query: String, navController: NavController) {
+fun MainAppBar(query: String, navController: NavController,onProfileClick:()->Unit = {}) {
     var text by rememberSaveable { mutableStateOf(query) }
     var active by rememberSaveable { mutableStateOf(false) }
     Row(
@@ -51,7 +51,7 @@ fun MainAppBar(query: String, navController: NavController) {
             placeholder = { Text(text = "Search") },
             leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "") },
             trailingIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = onProfileClick ) {
                     Icon(
                         painter = rememberAsyncImagePainter(
                             model = "",
@@ -116,5 +116,5 @@ fun searchContent(query: String) {
 @Composable
 @Preview
 fun MainAppBarPreview() {
-    MainAppBar(query = "", navController = rememberNavController())
+    MainAppBar(query = "", navController = rememberNavController()){}
 }

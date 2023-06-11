@@ -4,15 +4,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ehsankhormali.wac.components.appbar.MainAppBar
+import com.ehsankhormali.wac.components.appbar.WacAppBar
 import com.ehsankhormali.wac.components.wac_bottom_navigation.WacBottomNavigation
 import com.ehsankhormali.wac.navigation.WacNavigation
+import com.ehsankhormali.wac.navigation.WacScreens
 import com.ehsankhormali.wac.ui.theme.WACTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,9 +30,11 @@ fun WacApp(){
         Scaffold(
             topBar = {
                     if (shouldShowMainAppBar)
-                        MainAppBar(query = "", navController = navController)
+                        MainAppBar(query = "", navController = navController){
+                            navController.navigate(WacScreens.ProfileScreen.name)
+                        }
                     else
-                        TopAppBar(title = { Text(text = "")})
+                        WacAppBar(navController = navController)
 
             },
             bottomBar = {

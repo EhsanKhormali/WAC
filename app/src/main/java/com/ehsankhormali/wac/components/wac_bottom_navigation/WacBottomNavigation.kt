@@ -12,7 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun WacBottomNavigation(navController: NavController){
-    val bottomNavigation= listOf(BottomNavigationScreen.Home,BottomNavigationScreen.Products)
+    val bottomNavigation= listOf(BottomNavigationScreens.Home,BottomNavigationScreens.Products)
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination=navBackStackEntry?.destination

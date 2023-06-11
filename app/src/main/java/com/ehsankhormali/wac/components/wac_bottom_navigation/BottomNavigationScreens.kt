@@ -8,14 +8,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.ehsankhormali.wac.R
 import com.ehsankhormali.wac.navigation.WacScreens
 
-sealed class BottomNavigationScreen(val route:String,@StringRes val resourceId: Int,val icon: ImageVector){
-    object Home:BottomNavigationScreen(
+sealed class BottomNavigationScreens(val route:String, @StringRes val resourceId: Int, val icon: ImageVector){
+    object Home:BottomNavigationScreens(
         route= WacScreens.HomeScreen.name,
         resourceId= R.string.home,
         icon=Icons.Default.Home
     )
 
-    object Products:BottomNavigationScreen(
+    object Products:BottomNavigationScreens(
         WacScreens.ProductsScreen.name,
         R.string.products,
         Icons.Default.Info

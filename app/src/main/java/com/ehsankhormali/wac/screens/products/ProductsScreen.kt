@@ -5,6 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
 @Composable
-fun Products(navController: NavController){
+fun ProductsScreen(navController: NavController){
     Text(text = "This is products Screen")
 }
