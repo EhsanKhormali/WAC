@@ -3,7 +3,6 @@ package com.ehsankhormali.wac.screens.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ehsankhormali.wac.R
+import com.ehsankhormali.wac.components.LoadingScreen
 import com.ehsankhormali.wac.data.RequestState
 import com.ehsankhormali.wac.navigation.WacScreens
 
@@ -118,20 +117,10 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
 
             }
 
-            is RequestState.Loading -> ScreenLoading()
+            is RequestState.Loading -> LoadingScreen()
             is RequestState.Error -> Text(text = "${viewModel.postListState.value.state.message}")
             else -> Text(text = "I'm idle")
         }
     }
 }
 
-@Composable
-fun ScreenLoading() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CircularProgressIndicator()
-    }
-}
