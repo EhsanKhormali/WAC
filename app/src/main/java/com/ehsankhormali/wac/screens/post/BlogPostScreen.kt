@@ -11,13 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ehsankhormali.wac.R
+import com.ehsankhormali.wac.components.HtmlTextView
 import com.ehsankhormali.wac.components.LoadingScreen
 import com.ehsankhormali.wac.data.RequestState
 
@@ -50,11 +50,12 @@ fun BlogPostScreen(
                         style =MaterialTheme.typography.headlineMedium.copy(
                             textDirection = TextDirection.Content)
                     )
-                    Text(
-                        text = post.content.rendered,
+                    /*Text(
+                        text =HtmlCompat.fromHtml(post.content.rendered,FROM_HTML_MODE_LEGACY),
                         modifier = Modifier.fillMaxWidth(),
                         style = TextStyle(textDirection = TextDirection.Content)
-                    )
+                    )*/
+                    HtmlTextView(text = post.content.rendered, modifier = Modifier.fillMaxWidth())
                 }
 
             }
