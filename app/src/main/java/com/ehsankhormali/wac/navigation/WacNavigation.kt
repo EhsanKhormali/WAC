@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ehsankhormali.wac.screens.home.HomeScreen
 import com.ehsankhormali.wac.screens.home.HomeScreenViewModel
+import com.ehsankhormali.wac.screens.login.LoginScreen
 import com.ehsankhormali.wac.screens.post.BlogPostScreen
 import com.ehsankhormali.wac.screens.products.ProductsScreen
 import com.ehsankhormali.wac.screens.profile.ProfileScreen
@@ -29,6 +30,10 @@ fun WacNavigation(navController: NavHostController) {
 
         composable(WacScreens.ProductsScreen.name){
             ProductsScreen(navController = navController)
+        }
+
+        composable(WacScreens.LoginScreen.name){
+            LoginScreen(navController = navController)
         }
 
         composable(WacScreens.ProfileScreen.name){

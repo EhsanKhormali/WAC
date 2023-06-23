@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ehsankhormali.wac.R
+import com.ehsankhormali.wac.components.HtmlTextView
 import com.ehsankhormali.wac.components.LoadingScreen
 import com.ehsankhormali.wac.data.RequestState
 import com.ehsankhormali.wac.navigation.WacScreens
@@ -65,9 +66,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                             style = MaterialTheme.typography.headlineSmall.copy(textDirection = TextDirection.Content),
                                             modifier = Modifier.fillMaxWidth()
                                         )
-                                        Text(text = postItem.excerpt.rendered,
-                                            style = MaterialTheme.typography.bodyMedium.copy(textDirection = TextDirection.Content),
-                                            modifier = Modifier.fillMaxWidth())
+                                        HtmlTextView(text = postItem.excerpt.rendered, modifier = Modifier.fillMaxWidth())
                                     }
                                 }
                                 Divider(thickness = 1.dp)

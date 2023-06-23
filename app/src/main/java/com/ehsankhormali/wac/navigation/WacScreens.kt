@@ -2,7 +2,7 @@ package com.ehsankhormali.wac.navigation
 
 enum class WacScreens {
     HomeScreen,
-    //LoginScreen,
+    LoginScreen,
     SearchScreen,
     ProductsScreen,
     BlogPostScreen,
