@@ -1,8 +1,8 @@
 package com.ehsankhormali.wac.components.wac_bottom_navigation
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
@@ -13,11 +13,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun WacBottomNavigation(navController: NavController){
     val bottomNavigation= listOf(BottomNavigationScreens.Home,BottomNavigationScreens.Products)
-    BottomNavigation {
+    NavigationBar {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination=navBackStackEntry?.destination
         bottomNavigation.forEach {screen ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 selected = currentDestination?.hierarchy?.any{it.route==screen.route}==true,
                 onClick = {
                           navController.navigate(screen.route){
