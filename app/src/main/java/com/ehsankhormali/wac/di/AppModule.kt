@@ -16,10 +16,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideWordpressApi():WordpressApi{
-return Retrofit.Builder()
-    .baseUrl(Constants.BASE_WORDPRESS_URL_V2)
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
-    .create(WordpressApi::class.java)
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_WORDPRESS_URL_V2)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(WordpressApi::class.java)
     }
 }
