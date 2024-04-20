@@ -17,7 +17,7 @@ class HomeScreenViewModel @Inject constructor(private val wacRepository: WacRepo
     val postListState:MutableState<ApiRequest<ArrayList<ShortPost>>> = mutableStateOf(ApiRequest(data = null, state = RequestState.Idle()))
 
     init {
-        getAllShortPosts()
+        getAllShortPosts(20)
     }
 
     private fun getAllShortPosts(pageNumber:Int=0){

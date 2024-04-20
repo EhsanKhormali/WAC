@@ -54,7 +54,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     AsyncImage(
-                                        model = postItem.embedded.wpFeaturedMedia?.let { it[0].mediaDetails.sizes.medium.sourceUrl },
+                                        model = postItem.embedded.wpFeaturedMedia?.let { it[0]?.mediaDetails?.sizes?.medium?.sourceUrl },
                                         placeholder = painterResource(id = R.drawable.image_placeholder),
                                         error = painterResource(id = R.drawable.image_placeholder),
                                         contentDescription = null,

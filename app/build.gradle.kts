@@ -7,7 +7,7 @@ plugins {
     id ("org.jetbrains.kotlin.android")
     //Hilt
     id ("com.google.dagger.hilt.android")
-    id ("kotlin-kapt")
+    kotlin("kapt")
 }
 
 android {

@@ -13,7 +13,7 @@ data class WpFeaturedMedia(
     val id: Int,
     val link: String,
     @SerializedName("media_details")
-    val mediaDetails: MediaDetails,
+    val mediaDetails: MediaDetails?,
     @SerializedName("media_type")
     val mediaType: String,
     @SerializedName("mime_type")
