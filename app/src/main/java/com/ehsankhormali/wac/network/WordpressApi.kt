@@ -12,7 +12,7 @@ interface WordpressApi {
     @GET("posts?_embed")
     suspend fun getAllPosts(@Query("p") pageNumber:Int):ArrayList<EmbeddedPost>
     @GET("posts?_embed&_fields= id,date,date_gmt,modified,modified_gmt,title,excerpt,author,_links.replies,_links.wp:featuredmedia,_links.author,_embedded")
-    suspend fun getAllShortPost(@Query("per_page") pageNumber:Int):ArrayList<ShortPost>
+    suspend fun getAllShortPost(@Query("page") pageNumber:Int,@Query("per_page") perPage:Int):ArrayList<ShortPost>
 
     @GET("posts/{postId}?_embed")
     suspend fun getEmbeddedPost(@Path("postId") postId:Int):EmbeddedPost

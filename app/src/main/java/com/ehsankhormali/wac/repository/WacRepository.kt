@@ -21,10 +21,10 @@ class WacRepository @Inject constructor(private val wordpressApi: WordpressApi) 
         return response
     }
 
-    suspend fun getAllShortPosts(pageNumber:Int=0):ApiRequest<ArrayList<ShortPost>>{
+    suspend fun getAllShortPosts(perPage:Int=10,pageNumber:Int=0):ApiRequest<ArrayList<ShortPost>>{
         val apiRequest=ApiRequest<ArrayList<ShortPost>>(data=null, state = RequestState.Loading())
         val response=try {
-            apiRequest.data =wordpressApi.getAllShortPost(pageNumber)
+            apiRequest.data =wordpressApi.getAllShortPost(perPage = perPage, pageNumber = pageNumber)
             if (!apiRequest.data.isNullOrEmpty()) apiRequest.state=RequestState.Success()
             apiRequest
         }catch (exception: Exception){

@@ -17,13 +17,13 @@ class HomeScreenViewModel @Inject constructor(private val wacRepository: WacRepo
     val postListState:MutableState<ApiRequest<ArrayList<ShortPost>>> = mutableStateOf(ApiRequest(data = null, state = RequestState.Idle()))
 
     init {
-        getAllShortPosts(20)
+        getAllShortPosts(perPage=10,pageNumber = 7)
     }
 
-    private fun getAllShortPosts(pageNumber:Int=0){
+    private fun getAllShortPosts(perPage:Int=10,pageNumber:Int=0){
         viewModelScope.launch {
             postListState.value.state=RequestState.Loading()
-            postListState.value=wacRepository.getAllShortPosts(pageNumber=pageNumber)
+            postListState.value=wacRepository.getAllShortPosts(perPage = perPage, pageNumber=pageNumber)
             if (!postListState.value.data.isNullOrEmpty())postListState.value.state=RequestState.Success()
         }
     }
