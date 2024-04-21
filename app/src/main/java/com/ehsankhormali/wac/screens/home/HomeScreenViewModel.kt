@@ -1,6 +1,7 @@
 package com.ehsankhormali.wac.screens.home
 
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,17 +15,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(private val wacRepository: WacRepository):ViewModel() {
-    val postListState:MutableState<ApiRequest<ArrayList<ShortPost>>> = mutableStateOf(ApiRequest(data = null, state = RequestState.Idle()))
+    val postListState=  mutableStateListOf<ShortPost>()
+    var requestState= mutableStateOf<RequestState>(RequestState.Loading())
 
     init {
-        getAllShortPosts(perPage=10,pageNumber = 7)
+        getAllShortPosts(perPage=10,pageNumber = 1)
     }
 
-    private fun getAllShortPosts(perPage:Int=10,pageNumber:Int=0){
+    fun getAllShortPosts(perPage:Int=10,pageNumber:Int=0){
         viewModelScope.launch {
-            postListState.value.state=RequestState.Loading()
-            postListState.value=wacRepository.getAllShortPosts(perPage = perPage, pageNumber=pageNumber)
-            if (!postListState.value.data.isNullOrEmpty())postListState.value.state=RequestState.Success()
+             val request =wacRepository.getAllShortPosts(perPage=perPage , pageNumber= pageNumber)
+            if (request.state is RequestState.Success){
+                request.data?.let { postListState.addAll(it) }
+                requestState.value=RequestState.Success()
+            }else{
+                requestState.value=RequestState.Error(request.state.message.toString())
+            }
         }
     }
 }

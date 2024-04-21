@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -38,10 +40,14 @@ import com.ehsankhormali.wac.navigation.WacScreens
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
     Surface(modifier = Modifier) {
-        when (viewModel.postListState.value.state) {
+        val listState= rememberLazyListState()
+
+        when (viewModel.requestState.value) {
             is RequestState.Success -> {
-                LazyColumn() {
-                    items(items = viewModel.postListState.value.data.orEmpty()) { postItem ->
+                LazyColumn(state = listState) {
+                    val itemCount=viewModel.postListState.count()
+                    items(count = itemCount ){index ->
+                        val postItem= viewModel.postListState[index]
                         Card(
                             modifier = Modifier.padding(5.dp),
                             elevation = CardDefaults.cardElevation(),
@@ -54,7 +60,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     AsyncImage(
-                                        model = postItem.embedded.wpFeaturedMedia?.let { it[0]?.mediaDetails?.sizes?.medium?.sourceUrl },
+                                        model = postItem.embedded.wpFeaturedMedia?.let { it[0].mediaDetails?.sizes?.medium?.sourceUrl },
                                         placeholder = painterResource(id = R.drawable.image_placeholder),
                                         error = painterResource(id = R.drawable.image_placeholder),
                                         contentDescription = null,
@@ -69,7 +75,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                                         HtmlTextView(text = postItem.excerpt.rendered, modifier = Modifier.fillMaxWidth())
                                     }
                                 }
-                                Divider(thickness = 1.dp)
+                                HorizontalDivider(thickness = 1.dp)
                                 Row(
                                     modifier = Modifier
                                         .height(45.dp)
@@ -111,14 +117,25 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                             }
 
                         }
+                        if (index==itemCount-3){
+                            val perPage=10
+                            val pageNumber=itemCount/perPage+1
+                            viewModel.getAllShortPosts(pageNumber = pageNumber)
+                        }
                     }
                 }
 
             }
 
-            is RequestState.Loading -> LoadingScreen()
-            is RequestState.Error -> Text(text = "${viewModel.postListState.value.state.message}")
-            else -> Text(text = "I'm idle")
+            is RequestState.Loading -> {
+                LoadingScreen()
+            }
+            is RequestState.Error -> {
+                Text(text = "${viewModel.requestState.value.message}")
+            }
+            else -> {
+                Text(text = "I'm idle")
+            }
         }
     }
 }

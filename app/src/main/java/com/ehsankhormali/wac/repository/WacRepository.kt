@@ -5,6 +5,8 @@ import com.ehsankhormali.wac.data.RequestState
 import com.ehsankhormali.wac.model.blog_post.EmbeddedPost
 import com.ehsankhormali.wac.model.blog_post.ShortPost
 import com.ehsankhormali.wac.network.WordpressApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class WacRepository @Inject constructor(private val wordpressApi: WordpressApi) {
@@ -23,7 +25,21 @@ class WacRepository @Inject constructor(private val wordpressApi: WordpressApi) 
 
     suspend fun getAllShortPosts(perPage:Int=10,pageNumber:Int=0):ApiRequest<ArrayList<ShortPost>>{
         val apiRequest=ApiRequest<ArrayList<ShortPost>>(data=null, state = RequestState.Loading())
-        val response=try {
+        val posts:Flow<ArrayList<ShortPost>> = flow {
+            try {
+                val requestedPosts =
+                    wordpressApi.getAllShortPost(perPage = perPage, pageNumber = pageNumber)
+                apiRequest.state=RequestState.Success()
+                emit(requestedPosts)
+            }catch (exception:Exception){
+                apiRequest.state=RequestState.Error(exception.message.toString())
+            }
+        }
+        posts.collect{
+            apiRequest.data=it
+        }
+
+        /*val response=try {
             apiRequest.data =wordpressApi.getAllShortPost(perPage = perPage, pageNumber = pageNumber)
             if (!apiRequest.data.isNullOrEmpty()) apiRequest.state=RequestState.Success()
             apiRequest
@@ -32,6 +48,8 @@ class WacRepository @Inject constructor(private val wordpressApi: WordpressApi) 
             apiRequest
         }
         return response
+        */
+        return apiRequest
     }
 
     suspend fun getEmbeddedPost(postId:Int) : ApiRequest<EmbeddedPost>{

@@ -1,6 +1,8 @@
 package com.ehsankhormali.wac.data
 
- class ApiRequest<T>(
+import java.util.concurrent.Flow
+
+class ApiRequest<T>(
      var data: T?,
      var state: RequestState){
 
