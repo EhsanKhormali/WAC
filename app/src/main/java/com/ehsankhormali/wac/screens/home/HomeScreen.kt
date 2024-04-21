@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -117,10 +115,11 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                             }
 
                         }
-                        if (index==itemCount-3){
-                            val perPage=10
-                            val pageNumber=itemCount/perPage+1
-                            viewModel.getAllShortPosts(pageNumber = pageNumber)
+
+
+                        if (index==itemCount-3 && viewModel.currentPage<viewModel.totalPages){
+                            viewModel.currentPage++
+                            viewModel.getAllShortPosts(pageNumber = viewModel.currentPage)
                         }
                     }
                 }
