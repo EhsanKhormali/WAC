@@ -22,7 +22,7 @@ data class EmbeddedPost(
     val guid: RenderedString,
     val id: Int,
     val link: String,
-    val meta: List<Any>,
+    //val meta:List<Any> ,
     val modified: String,
     @SerializedName("modified_gmt")
     val modifiedGmt: String,
