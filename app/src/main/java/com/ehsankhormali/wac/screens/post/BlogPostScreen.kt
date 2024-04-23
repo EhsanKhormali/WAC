@@ -17,7 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ehsankhormali.wac.R
-import com.ehsankhormali.wac.components.HtmlTextView
+import com.ehsankhormali.wac.widgets.HtmlTextView
 import com.ehsankhormali.wac.components.LoadingScreen
 import com.ehsankhormali.wac.data.RequestState
 
@@ -55,7 +55,8 @@ fun BlogPostScreen(
                         modifier = Modifier.fillMaxWidth(),
                         style = TextStyle(textDirection = TextDirection.Content)
                     )*/
-                    HtmlTextView(text = post.content.rendered, modifier = Modifier.fillMaxWidth())
+                    HtmlTextView(text = post.content.rendered, textSize = 20f, modifier = Modifier.fillMaxWidth())
+                    //WacWebView(rawHtml = post.content.rendered, modifier = Modifier.fillMaxWidth())
                 }
 
             }

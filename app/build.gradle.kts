@@ -107,6 +107,8 @@ dependencies {
 
     // JSON Converter
     implementation(libs.converter.gson)
+
+    implementation(libs.androidx.material.icons)
 }
 
 // Allow references to generated code

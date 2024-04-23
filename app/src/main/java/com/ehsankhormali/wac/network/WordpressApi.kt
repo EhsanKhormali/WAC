@@ -4,6 +4,7 @@ import com.ehsankhormali.wac.model.blog_post.EmbeddedPost
 import com.ehsankhormali.wac.model.blog_post.ShortPost
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Singleton
@@ -17,4 +18,7 @@ interface WordpressApi {
 
     @GET("posts/{postId}?_embed")
     suspend fun getEmbeddedPost(@Path("postId") postId:Int):EmbeddedPost
+
+    @POST("")
+    fun signInWithEmailAndPassword(email:String,password:String):Call<Any>
 }

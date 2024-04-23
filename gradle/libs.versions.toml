@@ -39,5 +39,6 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-material-icons = {group = "androidx.compose.material",name = "material-icons-extended"}
 
 [plugins]
