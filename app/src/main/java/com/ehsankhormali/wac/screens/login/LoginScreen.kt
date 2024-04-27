@@ -44,7 +44,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ehsankhormali.wac.R
 
 @Composable
-fun Login(navController: NavController){
+fun LoginScreen(navController: NavController){
     val email = remember {
         mutableStateOf("")
     }
@@ -135,5 +135,5 @@ fun Login(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun PreviewLogin(navController: NavController= rememberNavController()){
-    Login(navController = navController)
+    LoginScreen(navController = navController)
 }
