@@ -39,7 +39,6 @@ import com.ehsankhormali.wac.navigation.WacScreens
 fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
     Surface(modifier = Modifier) {
         val listState= rememberLazyListState()
-
         when (viewModel.requestState.value) {
             is RequestState.Success -> {
                 LazyColumn(state = listState) {
@@ -52,7 +51,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeScreenViewModel) {
                             onClick = { navController.navigate(WacScreens.BlogPostScreen.name + "/${postItem.id}") }
                         ) {
                             Column {
-
                                 Row(
                                     modifier = Modifier.padding(5.dp),
                                     verticalAlignment = Alignment.CenterVertically
