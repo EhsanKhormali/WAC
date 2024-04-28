@@ -1,4 +1,4 @@
 package com.ehsankhormali.wac.authentication
 
-class WordpressUser {
+class WacUser {
 }
